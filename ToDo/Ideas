@@ -1,0 +1,77 @@
+TODO:
+Processing neuron class:
+- knows only about nearest neurons
+#- randomly receives weak stimuli (to promote robustness and incentivize learning. if neuron learns, the random stimuli doesn't
+#create as much chaos because existing strong connections can overlay the random noise)
+#- alternatively trigger neuron when it's been inactive for too long
+Connections:
+- connecting:
+    - after a few epochs of firing together with its neighbors, they wire together with a promoting connection (axon)
+    - when neurons reliably fire together and are wired together, the connection gets stronger
+- has inhibitory/promoting connections
+- when signal of one promoting axon exceeds a threshold, all other axons transfer signal as well
+    - stacked weak signals from multiple axons can also be added to exceed threshold
+- when signal of one inhibitory axon exceeds a threshold, all other axons stop cannot be excited for a given timeframe
+- all excitations happen over a short timeframe, after which the cell cannot be excited again
+- connections get weaker when neuron is not used in a long time
+- a connection is on cooldown after being depolarized (aka action potential)
+Internal motivation:
+- external forces can trigger pain
+    - this pain triggers random axons of the neuron, creating chaos
+
+Perceptive neuron class (visual):
+- layered perceptive neurons that receive stimuli from the environment
+
+Muscle neuron class (visual):
+- neurons that are connected to muscles to manipulate the environment
+
+Axon class:
+- from which and to which cell
+- how sensitive is the connection
+- sensitivity, decay and delay get decreased when axon receives signal during cooldown or if triggered very often
+
+Neuron space:
+geometric dimension containing all cells
+
+
+
+General architecture:
+- perceptive layer that receives stimuli from the environment
+- muscles which can be used to interact with the environment
+
+Free energy principle:
+- a deep neuron (middle between perception and muscles) gets triggered
+- signal triggers muscle(s)
+# this is not needed because it will learn anyway by being used
+#- if the neuron gets triggered again after (short while but not too long, because it needs correlation) time has passed,
+#the connections grow much stronger
+- if neuron gets
+
+
+
+Initialization:
+- every neuron has at least two connections
+
+
+
+
+Learning rule:
+- when an axon is used frequently, the
+
+
+
+
+TODO:
+feed from perceptive and interaction at the same time. Do very often. If nothing much is changing go to next example
+create a time interval, during which the network makes a step
+
+
+Nacheinander die perceptive neurons aktivieren und danach "memory" durch:
+- neuron bekommt signal
+- neuron behält signal
+- mit der zeit wird das signal schwächer
+- wenn ein neuron ein zweites signal bekommt, werden die signale addiert
+
+Wenn output getriggert wird, ohne dass output = label is, dann werden die
+
+Competitive axon: neuron wants to inhibit other neurons
