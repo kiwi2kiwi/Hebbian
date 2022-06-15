@@ -3,6 +3,7 @@ Looking for a set of rules that enables neurons to learn. The learning is not go
 Trying to make neurons that can learn by themself without instructions from the outside. Each neuron should only receive information from the neurons it's connected to.
 I haven't decided if i want to keep it unsupervised, semi-supervised or supervised.
 Also haven't decided if the random distribution of neurons in a sphere between input and output should be kept or if a preexisting rough neuron structure is essential for the ability to learn on a certain dataset.
+
 What's currently implemented:
 - Visualized in Matplotlib for easy debugging
 - Unsupervised
