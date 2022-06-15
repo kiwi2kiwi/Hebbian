@@ -1,8 +1,5 @@
-import time
 import random
-
 import numpy as np
-
 import Coordinates
 import Processing_neuron
 
@@ -69,11 +66,15 @@ class Axon():
         self.base_space.grown_axons.append(self.name)
 
     def forget(self):
-        self.threshold = Coordinates.clamp(self.threshold+0.05, 0.02,1)
-        # Axon disappears because it was never used
+        # The Axon should not disappear if either of its adjacent Processing neurons only has two Axons
+
+
+        self.threshold = Coordinates.clamp(self.threshold*1.05, 0.02,0.8)
+        # Axon disappears because it was not often used
         if not self.relevant_axon:
-            if self.threshold == 1:
-                self.base_space.to_remove.append(self)
+            if self.threshold == 0.8:
+                if len(self.neuron1.connections) > 2 and len(self.neuron2.connections) > 2:
+                    self.base_space.to_remove.append(self)
 
     def randomize(self):
         self.threshold = self.threshold * random.uniform(0.8,1.2)

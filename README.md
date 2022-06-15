@@ -17,7 +17,7 @@ What's currently implemented:
 Neurons:
   - Processing neurons are scattered randomly in a distribution between output (Interactive) and input (Perceptive) neurons
   - has connections to other neurons (Axons)
-  - when a neuron is depolarized with a signal it sends the signal to all other axons
+  - when a neuron is depolarized with a signal it sends the signal to all other axons.
   - the depolarization of a neuron does not disappear after one tick but decays in a short time. 
     This short time window provides the ability for other adjacent neurons to further depolarize this neuron.
   
@@ -29,7 +29,7 @@ Axons:
   - has a cooldown during which it cannot be depolarized again
   - if it's depolarized frequently within a time period, it's threshold for depolarization is lowered
   - after each image input, the threshold of every Axon is increased to simulate "Forgetting".
-    If the threshold is too high, the Axon is removed
+    If the threshold is too high, the Axon is removed. The Axon is not removed if either of its adjacent neurons have less than 3 Axons
 
 Neuron space:
   - 3D space where neurons and axons exist. Current size is 100 x 100 x 100
@@ -40,7 +40,9 @@ Neuron space:
     The never connect two Perceptive or two Interactive
 
 Other general rules:
-- If two neurons are repeatedly active at the same time, they wire together (Hebb: "fire together, wire together"
+- If two neurons are repeatedly active at the same time, they wire together (Hebb: "fire together, wire together"). 
+  Because I'm doing that in the Neuron_space class, the neurons technically do not connect on their own, violating the concept of not telling them what to do.
+  It should instead be implemented in the neurons themselves.
 
 
 What I'm working on:

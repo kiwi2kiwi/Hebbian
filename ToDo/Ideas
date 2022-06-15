@@ -75,3 +75,13 @@ Nacheinander die perceptive neurons aktivieren und danach "memory" durch:
 Wenn output getriggert wird, ohne dass output = label is, dann werden die
 
 Competitive axon: neuron wants to inhibit other neurons
+
+#Done Axon threshold should never go above a limit, because above this limit would make it impossible for the neuron to ever get triggered and increase again, making it a dead axon.
+
+Pass image 1 through net. Then activate the neuron for it's target. Do this 5 times. Afterwards decay the axon connections.
+This is supervised learning but i just want to see if it can actually learn with this.
+
+Maby the "what fires together, wires together" only works for supervised learning. Maby only wire those neurons together that were last active in Image passing and Target activation
+
+There are neurons that do not have any connections. Their axons got deleted because the algorithm that checks the neighbouring axons for connections does not consider that they may also have their axons deleted at the same time.
+- Solution: Only delete one Axon per run

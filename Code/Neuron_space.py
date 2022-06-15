@@ -18,14 +18,11 @@ size = 100
 class NeuronSpace():
     def __init__(self, Visualization):
         super(NeuronSpace, self).__init__()
-        self.x = size
-        self.y = size
-        self.z = size
         self.iter = 0
         self.ticks = 0
         self.generate = False
-        self.spawn_neurons()
         self.Visualization = Visualization
+        self.spawn_neurons_axons()
 
     def new_positions_spherical_coordinates(self):
         phi = random.uniform(0, 2 * np.pi)
@@ -33,7 +30,7 @@ class NeuronSpace():
         u = random.uniform(0, 1)
 
         theta = np.arccos(costheta)
-        r = (size-10 / 2) * np.sqrt(u)
+        r = ((size-10) / 2) * np.sqrt(u)
 
         x = r * np.sin(theta) * np.cos(phi)
         y = r * np.sin(theta) * np.sin(phi)
@@ -105,10 +102,9 @@ class NeuronSpace():
     def find_x_nearest(self, Neuron, setB, connection_limit=8, x=5): # finds x nearest Neurons of setB to Neuron
         distdict={}
         for i in setB:
-            if i != Neuron and len(i.connections) < connection_limit:
+            if i != Neuron and len(i.connections) < connection_limit and sum([(type(c.other_side(i)) == Perceptive_neuron.PerceptiveNeuron or type(c.other_side(i)) == Interaction_neuron.InteractionNeuron) for c in i.connections]) == 0:
                 # check if neuron is perceptive and if i already connected to perceptive
                 # this should ensure that one perceptive neuron does not connect to a processing neuron thats already connected to a perceptive neuron
-                temp = type(Neuron) == Perceptive_neuron.PerceptiveNeuron
                 if type(Neuron) == Perceptive_neuron.PerceptiveNeuron:
                     perceptive_connections = [(type(connections_of_i.other_side(connections_of_i)) == Perceptive_neuron.PerceptiveNeuron) for connections_of_i in i.connections]
                     if sum(perceptive_connections) == 0:
@@ -140,7 +136,7 @@ class NeuronSpace():
         for n in self.grown_axons:
             value = self.axon_line_dict[n]
             value[0][0].set_color("green")
-        if len(self.grown_axons) >0:
+        if len(self.grown_axons) > 0:
             print("strengthened ", len(self.grown_axons), " axons")
         for n in self.new_axons:
             value = self.axon_line_dict[n.name]
@@ -211,7 +207,7 @@ class NeuronSpace():
                                                                 c='grey')), a]
                                     n.fire_together = {}
                                 elif z.name in n.fire_together.keys():
-                                    n.fire_together[z.name] += 5
+                                    n.fire_together[z.name] += 3
 
 
     def run(self):
@@ -234,7 +230,7 @@ class NeuronSpace():
         #hier gehts weiter
 
 
-    def spawn_neurons(self):
+    def spawn_neurons_axons(self):
 
         # TODO
         # choose coordinates for perceptive neurons, set V
@@ -298,7 +294,7 @@ class NeuronSpace():
 
         # axons generation from Processing to 3 nearest neurons in processing neuron set
         for p in self.Pset:
-            Ns = self.find_x_nearest(p,self.Pset,connection_limit=20, x=3)
+            Ns = self.find_x_nearest(p,self.Pset,connection_limit=20, x=5)
             for n in Ns:
                 self.create_Axon(p, n)
 
@@ -366,15 +362,19 @@ class NeuronSpace():
             self.to_remove = []
             for all_axons in self.Axon_dict.values():
                 all_axons.forget()
-            for i in self.to_remove:
-                self.Axon_dict.pop(i.name)
+
+            # only one is deleted to avoid mass extinction
+            if len(self.to_remove) >= 1:
+                self.Axon_dict.pop(self.to_remove[0].name)
                 if self.Visualization:
-                    self.axon_line_dict.pop(i.name)
-                i.neuron1.connections.remove(i)
-                i.neuron2.connections.remove(i)
-                del i
+                    self.axon_line_dict.pop(self.to_remove[0].name)
+                self.to_remove[0].neuron1.connections.remove(self.to_remove[0])
+                self.to_remove[0].neuron2.connections.remove(self.to_remove[0])
+                del self.to_remove[0]
+
             if len(self.to_remove) > 0:
-                print("Removed ", len(self.to_remove), " axons")
+
+                print(len(self.to_remove), " axons at max threshold")
 
 
         # clean up for next run
@@ -431,11 +431,12 @@ for d,t in zip(df1, digits.target):
     print("durchgang ", images, " start tick: ", neuronspace.ticks)
     neuronspace.feed_image_unsupervised(d, t, learn = True)
     images += 1
-    if images == 110:
+    if images == 20:
         print("stop")
-    if images == 100:
+    if images == 10:
         print("stop")
         neuronspace.Visualization = True
+        plt.ion()
         neuronspace.start_vis()
 
 
