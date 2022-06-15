@@ -4,6 +4,8 @@ Trying to make neurons that can learn by themselves without instructions from th
 I haven't decided if I want to keep it unsupervised, semi-supervised or supervised.
 Also haven't decided if the random distribution of neurons in a sphere between input and output should be kept or if a preexisting rough neuron structure is essential for the ability to learn on a certain dataset.
 
+If you want to try this out but don't get it working, contact me and I'll add more comments for explanation.
+
 What's currently implemented:
 - Visualized in Matplotlib for easy debugging.
 - There's a picture folder where for each tick a picture is taken. Active neurons and axons in red. If a new Axon is grown or its threshold is lowered it blinks in green. Unfortunately the green is not easily visible. Everything else is grey.
