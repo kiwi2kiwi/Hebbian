@@ -1,7 +1,7 @@
 # Hebbian
-Looking for a set of rules that enables neurons to learn. The learning is not goal oriented. The network should decide by itself what it wants to learn.
+Looking for a set of rules that enables neurons to learn. Learning should not be goal oriented. The network should decide by itself what it wants to learn.
 Trying to make neurons that can learn by themselves without instructions from the outside. Each neuron should only receive information from the neurons it's connected to.
-I would summarize this as "Autonomous neuron anarchist learning rules"
+I would summarize this as "Autonomous neuron learning rules"
 I haven't decided if I want to keep it unsupervised, semi-supervised or supervised.
 Also haven't decided if the random distribution of neurons in a sphere between input and output should be kept or if a preexisting rough neuron structure is essential for the ability to learn on a certain dataset.
 If you want to try this out but don't get it working or don't understand something, contact me and I'll add more comments for explanation.
@@ -51,13 +51,11 @@ What I'm working on:
 
 
 
-Philosophy behind this experiment:
+Thoughts this experiment:
 I started this after being frustrated by neural networks. Most projects don't benefit from deep learning, and you just end up shifting around hyperplanes in a hyperdimensional space.
 Classical neural network architectures are rigid and will not change their architecture by themselves.
-This network is supposed to be "anarchist" in the sense of providing general rules that are the same for every neuron. 
-With these rules it should be able to learn how to learn better. 
-It should change its architecture dynamically and without the need of a hierarchy between an outside observer and the neuron.
 
+This network should change its architecture dynamically and without the need of a hierarchy between an outside observer and the neuron.
 I'm looking for a set of basic instructions applicable to every neuron that enables them to autonomously arrange themselves according to the input.
 The network should not be made to predict classes that an outside observer defines, but rather an output that the network itself defined as the best way to split the classes.
 Usually in neural networks the target labels are always defining what the network learns, forcing the network to understand the data the same way the class labels do.
