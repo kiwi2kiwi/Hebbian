@@ -38,6 +38,7 @@ Other general rules:
 
 What I'm working on:
 - trying to normalize the signals
+- Most axons died off by the 100th tick
 
 
 
