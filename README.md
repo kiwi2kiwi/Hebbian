@@ -1,10 +1,11 @@
 # Hebbian
 Looking for a set of rules that enables neurons to learn. The learning is not goal oriented. The network should decide by itself what it wants to learn.
 Trying to make neurons that can learn by themselves without instructions from the outside. Each neuron should only receive information from the neurons it's connected to.
+I would summarize this as "Autonomous neuron anarchist learning rules"
 I haven't decided if I want to keep it unsupervised, semi-supervised or supervised.
 Also haven't decided if the random distribution of neurons in a sphere between input and output should be kept or if a preexisting rough neuron structure is essential for the ability to learn on a certain dataset.
+If you want to try this out but don't get it working or don't understand something, contact me and I'll add more comments for explanation.
 
-If you want to try this out but don't get it working, contact me and I'll add more comments for explanation.
 
 What's currently implemented:
 - Visualized in Matplotlib for easy debugging.
@@ -30,6 +31,7 @@ Axons:
   - after each image input, the threshold of every Axon is increased to simulate "Forgetting".
     If the threshold is too high, the Axon is removed
 
+
 Other general rules:
 - If two neurons are repeatedly active at the same time, they wire together (Hebb: "fire together, wire together"
 
@@ -53,5 +55,5 @@ Usually in neural networks the target labels are always defining what the networ
 What if, to the network, the target labels do not provide the best way to understand and classify data?
 
 
-If you use this for research, cite and contact me because i'm very curious. 
+If you use this for research, cite and contact me because I'm very curious. 
 Please do not use this for commercial purposes. If you somehow make money from it, please send it to the anarchist black cross.
