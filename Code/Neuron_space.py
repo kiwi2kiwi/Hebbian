@@ -32,9 +32,8 @@ class NeuronSpace():
         costheta = random.uniform(-1, 1)
         u = random.uniform(0, 1)
 
-        size = 100
         theta = np.arccos(costheta)
-        r = (size / 2) * np.sqrt(u)
+        r = (size-10 / 2) * np.sqrt(u)
 
         x = r * np.sin(theta) * np.cos(phi)
         y = r * np.sin(theta) * np.sin(phi)

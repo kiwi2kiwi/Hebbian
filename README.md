@@ -31,6 +31,13 @@ Axons:
   - after each image input, the threshold of every Axon is increased to simulate "Forgetting".
     If the threshold is too high, the Axon is removed
 
+Neuron space:
+  - 3D space where neurons and axons exist. Current size is 100 x 100 x 100
+  - Input (Perceptive) neurons exist on a Plane at x: -50
+  - Output (Interactive) neurons exist on a Plane at x: +50
+  - Processing neurons are randomly distributed in a sphere with radius 45
+  - Axons are generated between Perceptive and Processing, Processing and Processing, Interactive and Processing.
+    The never connect two Perceptive or two Interactive
 
 Other general rules:
 - If two neurons are repeatedly active at the same time, they wire together (Hebb: "fire together, wire together"
@@ -38,7 +45,8 @@ Other general rules:
 
 What I'm working on:
 - trying to normalize the signals
-- Most axons died off by the 100th tick
+- Most axons died off by the 100th tick so I need to change some parameters. The goal is balancing "forgetting" and "strengthening" Axons. 
+  Obviously axons should not "forget" when they are not constantly being used but still important.
 
 
 
