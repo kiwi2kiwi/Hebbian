@@ -1,12 +1,12 @@
 # Hebbian
 Looking for a set of rules that enables neurons to learn. The learning is not goal oriented. The network should decide by itself what it wants to learn.
 Trying to make neurons that can learn by themselves without instructions from the outside. Each neuron should only receive information from the neurons it's connected to.
-I haven't decided if i want to keep it unsupervised, semi-supervised or supervised.
+I haven't decided if I want to keep it unsupervised, semi-supervised or supervised.
 Also haven't decided if the random distribution of neurons in a sphere between input and output should be kept or if a preexisting rough neuron structure is essential for the ability to learn on a certain dataset.
 
 What's currently implemented:
 - Visualized in Matplotlib for easy debugging.
-- There's a picture folder where for each tick a picture is taken. Active neurons and axons in red. If a new Axon is grown or it's threshold is lowered it blinks in green. Unfortunately the green is not easily visible. Everything else is grey.
+- There's a picture folder where for each tick a picture is taken. Active neurons and axons in red. If a new Axon is grown or its threshold is lowered it blinks in green. Unfortunately the green is not easily visible. Everything else is grey.
 - Unsupervised
 - Input from scikit 8 x 8 MNIST
 - There are Neurons and their Axons
@@ -39,6 +39,7 @@ What I'm working on:
 
 
 Philosophy behind this experiment:
+I started this after being frustrated by neural networks. Most projects don't benefit from deep learning, and you just end up shifting around hyperplanes in a hyperdimensional space.
 Classical neural network architectures are rigid and will not change their architecture by themselves.
 This network is supposed to be "anarchist" in the sense of providing general rules that are the same for every neuron. 
 With these rules it should be able to learn how to learn better. 
