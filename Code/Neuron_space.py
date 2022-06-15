@@ -16,7 +16,7 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 size = 100
 class NeuronSpace():
-    def __init__(self):
+    def __init__(self, Visualization):
         super(NeuronSpace, self).__init__()
         self.x = size
         self.y = size
@@ -25,6 +25,7 @@ class NeuronSpace():
         self.ticks = 0
         self.generate = False
         self.spawn_neurons()
+        self.Visualization = Visualization
 
     def new_positions_spherical_coordinates(self):
         phi = random.uniform(0, 2 * np.pi)
@@ -320,7 +321,6 @@ class NeuronSpace():
 
         self.grown_axons = []
         self.new_axons = []
-        self.Visualization = False
         if self.Visualization:
             self.start_vis()
             #self.draw_brain(active_axons={})
@@ -416,7 +416,7 @@ class NeuronSpace():
         print("Bild generiert")
 
 
-neuronspace = NeuronSpace()
+neuronspace = NeuronSpace(Visualization = False)
 from sklearn import datasets
 from sklearn import preprocessing
 import pandas as pd
