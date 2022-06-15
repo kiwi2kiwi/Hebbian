@@ -51,7 +51,7 @@ What I'm working on:
 
 
 
-Thoughts this experiment:
+Thoughts behind this experiment:
 I started this after being frustrated by neural networks. Most projects don't benefit from deep learning, and you just end up shifting around hyperplanes in a hyperdimensional space.
 Classical neural network architectures are rigid and will not change their architecture by themselves.
 
