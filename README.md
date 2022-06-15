@@ -5,10 +5,12 @@ I haven't decided if i want to keep it unsupervised, semi-supervised or supervis
 Also haven't decided if the random distribution of neurons in a sphere between input and output should be kept or if a preexisting rough neuron structure is essential for the ability to learn on a certain dataset.
 
 What's currently implemented:
-- Visualized in Matplotlib for easy debugging
+- Visualized in Matplotlib for easy debugging.
+- There's a picture folder where for each tick a picture is taken. Active neurons and axons in red. If a new Axon is grown or it's threshold is lowered it blinks in green. Unfortunately the green is not easily visible. Everything else is grey.
 - Unsupervised
 - Input from scikit 8 x 8 MNIST
 - There are Neurons and their Axons
+- The simulation is run in ticks
 Neurons:
   - Processing neurons are scattered randomly in a distribution between output (Interactive) and input (Perceptive) neurons
   - has connections to other neurons (Axons)
@@ -20,7 +22,7 @@ Axons:
   - connection between two neurons
   - can be depolarized by either of it's two neurons (bi-directional)
   - has a threshold. If the depolarization from its adjacent neurons surpasses the threshold, it will depolarize the other neuron after a delay that 
-    is corresponding to the 3D distance between it's two neurons
+    is corresponding to the 3D distance between it's two neurons. Somehow looks like a ReLU activation function.
   - has a cooldown during which it cannot be depolarized again
   - if it's depolarized frequently within a time period, it's threshold for depolarization is lowered
   - after each image input, the threshold of every Axon is increased to simulate "Forgetting".
@@ -28,6 +30,10 @@ Axons:
 
 Other general rules:
 - If two neurons are repeatedly active at the same time, they wire together (Hebb: "fire together, wire together"
+
+
+What I'm working on:
+- trying to normalize the signals
 
 
 
