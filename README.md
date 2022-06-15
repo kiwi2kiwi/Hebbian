@@ -62,5 +62,5 @@ Usually in neural networks the target labels are always defining what the networ
 What if, to the network, the target labels do not provide the best way to understand and classify data?
 
 
-If you use this for research, cite and contact me because I'm very curious. 
+If you use this for research or are interested, contact me because I'm very curious. 
 Please do not use this for commercial purposes. If you somehow make money from it, please send it to the anarchist black cross.
