@@ -426,6 +426,13 @@ df = pd.DataFrame(datasets.load_digits().data)
 df1 = min_max_scaler.fit_transform(df)
 digits = datasets.load_digits()
 images = 0
+
+print("Sensing images \n"
+      "Symptoms: \n"
+      "-Quick decay of axons \n"
+      "-Activation function is the binary step function to simulate synapse transmitting signals \n"
+      "-Not emergent")
+
 for d,t in zip(df1, digits.target):
     #neuronspace.generate_image(d, t)
     print("durchgang ", images, " start tick: ", neuronspace.ticks)

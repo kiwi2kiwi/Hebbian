@@ -5,20 +5,19 @@ import Processing_neuron
 
 class Axon():
     # simulates the axon and its synapse
-    def __init__(self, neuron1, neuron2, name, size, base_space, threshold = 0.65):#, signal = 0.7):
+    def __init__(self, neuron1, neuron2, name, size, base_space, threshold = 0.65):
         super(Axon, self).__init__()
         self.cooldown = 30 # when signal successfully gets transmitted, how long does it take before the axon is ready again
         self.learning_time = 300 # if axon gets used 3 times during this learning time, the axon threshold gets lower, decay is lowered
         self.base_space = base_space
-        self.first_signal = -600 #self.base_space.ticks-600
-        self.second_signal = -600 #self.base_space.ticks-600
-        self.third_signal = -600 #self.base_space.ticks-600
+        self.first_signal = -600
+        self.second_signal = -600
+        self.third_signal = -600
         # cooldown could also be implemented in the cell class
         self.neuron1 = neuron1
-#        self.signal = signal # default 70 mV current that travels along the axon
         self.neuron2 = neuron2
         self.threshold = threshold
-        self.last_signal = -40 #self.base_space.ticks - 40
+        self.last_signal = -40
         self.name = name
         if type(neuron1) != Processing_neuron.ProcessingNeuron or type(neuron2) != Processing_neuron.ProcessingNeuron:
             self.relevant_axon = True
@@ -27,19 +26,21 @@ class Axon():
 
         self.delay = Coordinates.clamp(int(np.log(Coordinates.distance_finder(neuron1.coordinates, neuron2.coordinates))),1,5)
 #        print("length of axon: ", self.delay)
-        self.decay = Coordinates.clamp(2*np.log(self.delay * (self.delay/size)*7), 0.85, 1)
+        '''DECAY'''
+#        self.decay = Coordinates.clamp(2*np.log(self.delay * (self.delay/size)*7), 0.85, 1)
+        self.decay = 0
+        '''DECAY'''
         self.time_when_activated = 0
 #        print("decay: ", self.decay)
         self.active = False
 
     def receive_signal(self, sourceNeuron, signal):
         if self.cooldown < (self.base_space.ticks - self.last_signal):
-            if self.threshold < signal:# * self.decay:
+            if self.threshold < signal:
                 self.active = True
                 self.time_when_activated = self.base_space.ticks
                 self.base_space.active_axons[self.name] = self
                 self.sourceNeuron = sourceNeuron
-                #self.signal = signal
 
     def step(self):
         if self.time_when_activated == self.base_space.ticks - self.delay:
