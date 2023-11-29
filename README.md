@@ -1,5 +1,8 @@
 # Hebbian
-Looking for a set of rules that enables neurons to learn. Learning should not be goal oriented. The network should decide by itself what it wants to learn.
+Looking for a set of rules that enables neurons to learn. 
+1. Learning should not be goal oriented.
+2. The network should decide by itself what it wants to learn.
+
 Trying to make neurons that can learn by themselves without instructions from the outside. Each neuron should only receive information from the neurons it's connected to.
 I would summarize this as "Autonomous neuron learning rules"
 I haven't decided if I want to keep it unsupervised, semi-supervised or supervised.
@@ -52,7 +55,6 @@ What I'm working on:
 
 
 
-
 Thoughts behind this experiment:
 I started this after being frustrated by neural networks. Most projects don't benefit from deep learning, and you just end up shifting around hyperplanes in a hyperdimensional space.
 Classical neural network architectures are rigid and will not change their architecture by themselves.
@@ -65,4 +67,4 @@ What if, to the network, the target labels do not provide the best way to unders
 
 
 If you use this for research or are interested, contact me because I'm very curious. 
-Please do not use this for commercial purposes. If you somehow make money from it, please send it to the anarchist black cross.
+Please do not use this for commercial purposes.
