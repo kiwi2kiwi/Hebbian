@@ -4,8 +4,8 @@ import random
 class Neuron():
     def __init__(self):
         super(Neuron, self).__init__()
-        self.parent_connections = [] # closer to input
-        self.children_connections = [] # closer to output
+        self.parent_connections = {} # closer to input
+        self.children_connections = {} # closer to output
         self.output = 0
         self.new_weight = 0
         self.activated = False
@@ -17,25 +17,31 @@ class Neuron():
 
     def wire(self):
         weight = round(random.uniform(0, 1), 2)
-        for p in self.parent_connections:
-            p[1] = weight
-            p[0].children_connections.append([self, weight, 0])
+        for p in self.parent_connections.keys():
+            parent_connection = self.parent_connections[p]
+            parent = parent_connection[0]
+            new_weight_to_parent = parent_connection[2]
+            parent.childrens_connections[self] = [self, weight, new_weight_to_parent]
+            self.parent_connections[p] = [parent, weight, new_weight_to_parent]
+
 
     def change_weight(self):
-        self.parent_connections[0][1] = self.new_weight
-        self.parent_connections[0][0].children_connections[0][1] = self.new_weight
+        for p in self.parent_connections.keys():
+            parent_connection = self.parent_connections[p]
+            parent = parent_connection[0]
+            new_weight_to_parent = parent_connection[2]
+            parent.childrens_connections[self] = [self, new_weight_to_parent, new_weight_to_parent]
+            self.parent_connections[p] = [parent, new_weight_to_parent, new_weight_to_parent]
 
 
-    def change_weight_old(self):
-        self.parent_connections[0][1] = self.new_weight
-        self.parent_connections[0][0].children_connections[0][1] = self.new_weight
-
-    def get_weight(self):
-        return self.parent_connections[0][1]
+    def get_weight(self, parent):
+        return self.parent_connections[parent][1]
 
     def gradient_descent(self, bis_hier, learning_rate):
 
         ab_hier = self.a_null_a_eins() * bis_hier
+        for p in self.parent_connections.keys():
+            self.parent_connections[p].
         self.parent_connections[0][0].gradient_descent(ab_hier, learning_rate)
 
         error_durch_w = self.a_null_w_null() * bis_hier
