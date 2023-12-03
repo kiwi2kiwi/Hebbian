@@ -2,27 +2,32 @@ import numpy as np
 import random
 
 class Neuron():
-    def __init__(self):
+    def __init__(self, name):
         super(Neuron, self).__init__()
         self.parent_connections = {} # closer to input
         self.children_connections = {} # closer to output
         self.output = 0
-        self.new_weight = 0
         self.activated = False
+        self.name = name
         print("Hey, im a neuron!")
 
     def reset_neuron(self):
         self.output = 0
         self.activated = False
+        for p in self.parent_connections.keys():
+            self.parent_connections[p][2] = []
+        for c in self.children_connections.keys():
+            self.children_connections[c][2] = []
+
 
     def wire(self):
         weight = round(random.uniform(0, 1), 2)
+        #weight = 0.8
         for p in self.parent_connections.keys():
             parent_connection = self.parent_connections[p]
             parent = parent_connection[0]
-            new_weight_to_parent = parent_connection[2]
-            parent.childrens_connections[self] = [self, weight, new_weight_to_parent]
-            self.parent_connections[p] = [parent, weight, new_weight_to_parent]
+            parent.children_connections[self.__hash__()] = [self, weight, []]
+            self.parent_connections[p] = [parent, weight, []]
 
 
     def change_weight(self):
@@ -30,8 +35,9 @@ class Neuron():
             parent_connection = self.parent_connections[p]
             parent = parent_connection[0]
             new_weight_to_parent = parent_connection[2]
-            parent.childrens_connections[self] = [self, new_weight_to_parent, new_weight_to_parent]
-            self.parent_connections[p] = [parent, new_weight_to_parent, new_weight_to_parent]
+            #new_weight = parent_connection[1] + sum(new_weight_to_parent)
+            parent.children_connections[self.__hash__()] = [self, new_weight_to_parent[0], new_weight_to_parent]
+            self.parent_connections[p] = [parent, new_weight_to_parent[0], new_weight_to_parent]
 
 
     def get_weight(self, parent):
@@ -41,13 +47,16 @@ class Neuron():
 
         ab_hier = self.a_null_a_eins() * bis_hier
         for p in self.parent_connections.keys():
-            self.parent_connections[p].
-        self.parent_connections[0][0].gradient_descent(ab_hier, learning_rate)
+            parent_connection = self.parent_connections[p]
+            self.parent_connections[p][0].gradient_descent(ab_hier, learning_rate)
 
-        error_durch_w = self.a_null_w_null() * bis_hier
-        self.new_weight = self.get_weight() - (learning_rate * error_durch_w)
-        print("weight: ", round(self.new_weight,2), " adjust: ", round(self.new_weight - self.get_weight(),2))
+            error_durch_w = self.a_null_w_parent(parent_connection[0]) * bis_hier
+
+            self.parent_connections[p][2].append(self.get_weight(p) - (learning_rate * error_durch_w))
+
+            print("weight: ", round(parent_connection[1],2), " adjust: ", round(parent_connection[2][0] - self.get_weight(p),2))
         self.change_weight()
+        self.reset_neuron()
 
 
     def activation_function(self, z):
@@ -63,38 +72,40 @@ class Neuron():
             return self.output
 
         summation = 0
-        for neuron, weight in self.parent_connections:
-            summation += neuron.activation() * weight
+        for p in self.parent_connections.keys():
+            parent_connection = self.parent_connections[p]
+            summation += parent_connection[0].activation() * parent_connection[1]
         self.output = self.activation_function(summation)
         self.activated = True
         return self.output
 
     def deri_activation(self):
         summation = 0
-        for neuron, weight in self.parent_connections:
-            summation += neuron.deri_activation()
+        for p in self.parent_connections.keys():
+            summation += self.parent_connections[p].deri_activation()
         return self.deri_activation_function(summation)
 
-    def a_null_w_null(self):
-        summation = 0
-        for neuron, weight in self.parent_connections:
-            summation += neuron.activation()
-        return self.deri_activation_function(summation)
+    def a_null_w_parent(self, parent):
+        return self.deri_activation_function(parent.activation())
 
     def a_null_a_eins(self):
         summation = 0
-        for neuron, weight in self.parent_connections:
-            summation += weight
+        for p in self.parent_connections.keys():
+            parent_connection = self.parent_connections[p]
+            summation += parent_connection[1]
         return self.deri_activation_function(summation)
 
+    def __hash__(self):
+        return self.name
 
 
 class input_Neuron():
-    def __init__(self):
+    def __init__(self, name):
         super(input_Neuron, self).__init__()
-        self.children_connections = [] # closer to output
+        self.children_connections = {} # closer to output
         self.output = 0
         self.activated = False
+        self.name = name
 
     def gradient_descent(self, a, b):
         pass
@@ -115,3 +126,6 @@ class input_Neuron():
     def reset_neuron(self):
         self.output = 0
         self.activated = False
+
+    def __hash__(self):
+        return self.name

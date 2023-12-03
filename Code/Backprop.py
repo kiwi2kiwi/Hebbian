@@ -1,28 +1,32 @@
 import random
 from Neuron import *
 
+neuron_number = 0
+
 input = [1.5]
 target = [0.5]
-input_layer = [input_Neuron()]
+input_layer = [input_Neuron(neuron_number)]
+neuron_number += 1
 
 
 weights = []
 
-layer_layout = [[1]]
+layer_layout = [[1],[1],[1]]
 
 layers = []
 active_neurons = []
 for idx, l in enumerate(layer_layout):
     layer = []
     for neur in l:
-        n = Neuron()
+        n = Neuron(neuron_number)
+        neuron_number += 1
 
         if idx == 0:
             for i in input_layer:
-                n.parent_connections.append([i, 100, 0])
+                n.parent_connections[i] = [i, 100, []]
         else:
             for i in layers[idx-1]:
-                n.parent_connections.append([i, 100, 0])
+                n.parent_connections[i] = [i, 100, []]
         layer.append(n)
     layers.append(layer)
 
@@ -54,9 +58,14 @@ def backprop():
         n.gradient_descent(error_through_a_zero, learning_rate)
 
 
+
+
 #    new_weight = weight - (learning_rate * error_durch_w)
 
 
+backprop()
+backprop()
+backprop()
 backprop()
 backprop()
 backprop()
