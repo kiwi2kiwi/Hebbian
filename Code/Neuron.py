@@ -6,20 +6,27 @@ class Neuron():
         super(Neuron, self).__init__()
         self.parent_connections = [] # closer to input
         self.children_connections = [] # closer to output
-        self.signals = []
         self.output = 0
         self.new_weight = 0
+        self.activated = False
         print("Hey, im a neuron!")
+
+    def reset_neuron(self):
+        self.output = 0
+        self.activated = False
 
     def wire(self):
         weight = round(random.uniform(0, 1), 2)
-        #self.parent_connections[0][1] = weight
         for p in self.parent_connections:
             p[1] = weight
-            p[0].children_connections.append([self,weight])
-        #self.parent_connections[0][0].children_connections[0][1] = new_weight
+            p[0].children_connections.append([self, weight, 0])
 
     def change_weight(self):
+        self.parent_connections[0][1] = self.new_weight
+        self.parent_connections[0][0].children_connections[0][1] = self.new_weight
+
+
+    def change_weight_old(self):
         self.parent_connections[0][1] = self.new_weight
         self.parent_connections[0][0].children_connections[0][1] = self.new_weight
 
@@ -46,10 +53,14 @@ class Neuron():
         return z
 
     def activation(self):
+        if self.activated:
+            return self.output
+
         summation = 0
         for neuron, weight in self.parent_connections:
             summation += neuron.activation() * weight
         self.output = self.activation_function(summation)
+        self.activated = True
         return self.output
 
     def deri_activation(self):
@@ -77,11 +88,13 @@ class input_Neuron():
         super(input_Neuron, self).__init__()
         self.children_connections = [] # closer to output
         self.output = 0
+        self.activated = False
 
     def gradient_descent(self, a, b):
         pass
 
     def set_input(self, input):
+        self.activated = True
         self.output = input
 
     def activation_function(z):
@@ -92,3 +105,7 @@ class input_Neuron():
 
     def deri_activation(self):
         return self.output
+
+    def reset_neuron(self):
+        self.output = 0
+        self.activated = False

@@ -2,26 +2,13 @@ import random
 from Neuron import *
 
 input = [1.5]
-weights = [0.8,0.2,0.5]
 target = [0.5]
 input_layer = [input_Neuron()]
-
-'''
-n1 = Neuron()
-n2 = Neuron()
-
-i1.children_connections.append([n1, weights[0]])
-n1.parent_connections.append([i1, weights[0]])
-n1.children_connections.append([n2, weights[1]])
-n2.parent_connections.append([n1, weights[1]])
-
-active_neurons = [n1,n2]
-'''
 
 
 weights = []
 
-layer_layout = [[1],[1],[1],[1]]
+layer_layout = [[1]]
 
 layers = []
 active_neurons = []
@@ -32,10 +19,10 @@ for idx, l in enumerate(layer_layout):
 
         if idx == 0:
             for i in input_layer:
-                n.parent_connections.append([i, 100])
+                n.parent_connections.append([i, 100, 0])
         else:
             for i in layers[idx-1]:
-                n.parent_connections.append([i, 100])
+                n.parent_connections.append([i, 100, 0])
         layer.append(n)
     layers.append(layer)
 
@@ -52,7 +39,9 @@ def deriv_error_function(pre,tar):
     return 2*(pre - tar)
 
 def compute_error():
-    input_layer[0].set_input(input[0])
+    for idx, inp in enumerate(input_layer):
+        inp.set_input(input[idx])
+
     for n in layers[-1]:
         pred = n.activation()
         print("error: ", error_function(pred, target[0]))
