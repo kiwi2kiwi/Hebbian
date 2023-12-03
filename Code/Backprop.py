@@ -4,14 +4,14 @@ from Neuron import *
 neuron_number = 0
 
 input = [1.5]
-target = [0.5]
+target = [0.5,1]
 input_layer = [input_Neuron(neuron_number)]
 neuron_number += 1
 
 
 weights = []
 
-layer_layout = [[1],[1],[1]]
+layer_layout = [[2]]
 
 layers = []
 active_neurons = []
@@ -46,15 +46,15 @@ def compute_error():
     for idx, inp in enumerate(input_layer):
         inp.set_input(input[idx])
 
-    for n in layers[-1]:
+    for idx, n in enumerate(layers[-1]):
         pred = n.activation()
-        print("error: ", error_function(pred, target[0]))
+        print("error: ", error_function(pred, target[idx]))
 
 def backprop():
     compute_error()
     learning_rate = 0.1
-    for n in layers[-1]:
-        error_through_a_zero = deriv_error_function(n.activation(), target[-1])
+    for idx, n in enumerate(layers[-1]):
+        error_through_a_zero = deriv_error_function(n.activation(), target[idx])
         n.gradient_descent(error_through_a_zero, learning_rate)
 
 
