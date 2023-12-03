@@ -11,7 +11,7 @@ neuron_number += 1
 
 weights = []
 
-layer_layout = [[2]]
+layer_layout = [[2],[1]]
 
 layers = []
 active_neurons = []
